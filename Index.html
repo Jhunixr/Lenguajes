@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare - Sistema de Citas Médicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0277BD;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #0288D1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0277BD;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0277BD;
+            border: 2px solid #0277BD;
+        }
+
+        .btn-secondary:hover {
+            background: #0277BD;
+            color: white;
+        }
+
+        .auth-container {
+            background: white;
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .auth-container h2 {
+            color: #0277BD;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0288D1;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-error {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #d32f2f;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 14px;
+            background: #0288D1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-full:hover {
+            background: #0277BD;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .form-footer a {
+            color: #0277BD;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0288D1 0%, #0277BD 100%);
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero-section h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .specializations {
+            padding: 40px 0;
+        }
+
+        .specializations h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .spec-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid #f0f0f0;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            border-color: #0288D1;
+        }
+
+        .spec-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .spec-card h3 {
+            color: #0277BD;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .spec-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .spec-card button {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: #0288D1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .spec-card button:hover {
+            background: #0277BD;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #0288D1 0%, #0277BD 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #0288D1;
+        }
+
+        .profile-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .info-row {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #0277BD;
+            width: 200px;
+        }
+
+        .info-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .edit-profile-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #0288D1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .edit-profile-btn:hover {
+            background: #0277BD;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .alert {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .appointments-list {
+            margin-top: 30px;
+        }
+
+        .appointment-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            border-left: 4px solid #0288D1;
+        }
+
+        .appointment-card h4 {
+            color: #0277BD;
+            margin-bottom: 10px;
+        }
+
+        .appointment-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .appointment-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar" id="navbar">
+            <div class="logo">🏥 MediCare</div>
+            <div class="nav-links" id="navLinks">
+                <button class="nav-btn btn-secondary" onclick="showLogin()">Iniciar Sesión</button>
+                <button class="nav-btn btn-primary" onclick="showRegister()">Registrarse</button>
+            </div>
+        </nav>
+
+        <!-- Login Form -->
+        <div class="auth-container" id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <div id="loginAlert"></div>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-full">Iniciar Sesión</button>
+            </form>
+            <div class="form-footer">
+                ¿No tienes cuenta? <a href="#" onclick="showRegister()">Regístrate aquí</a>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-container hidden" id="registerForm">
+            <h2>Crear Cuenta</h2>
+            <div id="registerAlert"></div>
+            <form onsubmit="register(event)">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="regPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="regPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" id="regBirthdate" required>
+                </div>
+                <div class="form-group">
+                    <label>Género</label>
+                    <select id="regGender" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Alergias (separadas por comas)</label>
+                    <textarea id="regAllergies" placeholder="Ej: Penicilina, Polen, Mariscos"></textarea>
+                </div>
+                <button type="submit" class="btn-full">Registrarse</button>
+            </form>
+            <div class="form-footer">
+                ¿Ya tienes cuenta? <a href="#" onclick="showLogin()">Inicia sesión aquí</a>
+            </div>
+        </div>
+
+        <!-- Main Content (Hidden initially) -->
+        <div class="main-content hidden" id="mainContent">
+            <!-- Home Section -->
+            <div id="homeSection">
+                <div class="hero-section">
+                    <h1>Bienvenido a MediCare</h1>
+                    <p>Sistema integral de gestión de citas médicas</p>
+                </div>
+
+                <div class="specializations">
+                    <h2>Nuestras Especializaciones</h2>
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <div class="spec-icon">👨‍⚕️</div>
+                            <h3>Medicina General</h3>
+                            <p>Atención médica integral para toda la familia</p>
+                            <button onclick="openAppointmentModal('Medicina General')">Agendar Cita</button>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-icon">🥗</div>
+                            <h3>Nutrición</h3>
+                            <p>Planes alimenticios personalizados y asesoramiento nutricional</p>
+                            <button onclick="openAppointmentModal('Nutrición')">Agendar Cita</button>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-icon">🚑</div>
+                            <h3>Obstetricia</h3>
+                            <p>Atención médica urgente las 24 horas</p>
+                            <button onclick="openAppointmentModal('Obstetricia')">Agendar Cita</button>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-icon">🦷</div>
+                            <h3>Odontología</h3>
+                            <p>Cuidado dental completo y tratamientos especializados</p>
+                            <button onclick="openAppointmentModal('Odontología')">Agendar Cita</button>
+                        </div>
+                        <div class="spec-card">
+                            <div class="spec-icon">❤️</div>
+                            <h3>Cardiología</h3>
+                            <p>Especialistas en salud cardiovascular</p>
+                            <button onclick="openAppointmentModal('Cardiología')">Agendar Cita</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="appointments-list">
+                    <h2 style="text-align: center; margin-bottom: 30px;">Mis Citas Programadas</h2>
+                    <div id="appointmentsList"></div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profileSection" class="hidden">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <h1 id="profileName"></h1>
+                        <p id="profileEmail"></p>
+                    </div>
+                    <div class="profile-info">
+                        <h2 style="color: #667eea; margin-bottom: 20px;">Información Personal</h2>
+                        <div class="info-row">
+                            <div class="info-label">Teléfono:</div>
+                            <div class="info-value" id="profilePhone"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Fecha de Nacimiento:</div>
+                            <div class="info-value" id="profileBirthdate"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Género:</div>
+                            <div class="info-value" id="profileGender"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Alergias:</div>
+                            <div class="info-value" id="profileAllergies"></div>
+                        </div>
+                        <button class="edit-profile-btn" onclick="showEditProfile()">Editar Perfil</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Reports Section -->
+            <div id="reportsSection" class="hidden" style="margin-top:20px;">
+                <h2 style="text-align:center;color:#333;">Reportes</h2>
+                <div id="reportsContainer" style="margin-top:12px;"></div>
+            </div>
+        </div>
+
+        <!-- Appointment Modal -->
+        <div class="modal" id="appointmentModal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeAppointmentModal()">&times;</span>
+                <h2 style="color: #667eea; margin-bottom: 20px;">Agendar Cita</h2>
+                <div id="appointmentAlert"></div>
+                <form onsubmit="scheduleAppointment(event)">
+                    <div class="form-group">
+                        <label>Especialidad</label>
+                        <input type="text" id="appointmentSpec" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="date" id="appointmentDate" required onchange="renderSlots()">
+                    </div>
+                    <div class="form-group">
+                        <label>Horarios disponibles (elige 1)</label>
+                        <div id="slotsContainer" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;"></div>
+                        <div style="font-size:12px;color:#666;margin-top:8px;">Cada día tiene 5 horarios predefinidos; si un horario está reservado se mostrará como ocupado.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre del cliente</label>
+                        <input type="text" id="appointmentName" required placeholder="Nombre del paciente">
+                    </div>
+                    <div class="form-group">
+                        <label>Motivo de la Consulta</label>
+                        <textarea id="appointmentReason" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-full">Confirmar Cita</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeEditProfile()">&times;</span>
+                <h2 style="color: #667eea; margin-bottom: 20px;">Editar Perfil</h2>
+                <form onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="editPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" id="editBirthdate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Género</label>
+                        <select id="editGender" required>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Alergias (separadas por comas)</label>
+                        <textarea id="editAllergies"></textarea>
+                    </div>
+                    <button type="submit" class="btn-full">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('medicalUsers')) || {};
+        let currentUser = null;
+        // appointments: objeto { userEmail: [appointment,...] }
+        let appointments = JSON.parse(localStorage.getItem('medicalAppointments')) || {};
+
+        const DEFAULT_SLOTS = ['09:00', '10:00', '11:00', '14:00', '16:00'];
+
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => alertDiv.innerHTML = '', 3000);
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        }
+
+        function register(e) {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value;
+            
+            if (users[email]) {
+                showAlert('registerAlert', 'Este correo ya está registrado', 'error');
+                return;
+            }
+
+            const user = {
+                name: document.getElementById('regName').value,
+                email: email,
+                password: document.getElementById('regPassword').value,
+                phone: document.getElementById('regPhone').value,
+                birthdate: document.getElementById('regBirthdate').value,
+                gender: document.getElementById('regGender').value,
+                allergies: document.getElementById('regAllergies').value
+            };
+
+            users[email] = user;
+            localStorage.setItem('medicalUsers', JSON.stringify(users));
+            
+            showAlert('registerAlert', 'Registro exitoso! Redirigiendo...', 'success');
+            setTimeout(() => {
+                currentUser = user;
+                showMainContent();
+            }, 800);
+        }
+
+        function login(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!users[email]) {
+                showAlert('loginAlert', 'Usuario no encontrado', 'error');
+                return;
+            }
+
+            if (users[email].password !== password) {
+                showAlert('loginAlert', 'Contraseña incorrecta', 'error');
+                return;
+            }
+
+            currentUser = users[email];
+            showAlert('loginAlert', 'Inicio de sesión exitoso!', 'success');
+            setTimeout(showMainContent, 700);
+        }
+
+        function showMainContent() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            
+            document.getElementById('navLinks').innerHTML = `
+                <button class="nav-btn btn-secondary" onclick="showHome()">Inicio</button>
+                <button class="nav-btn btn-secondary" onclick="showProfile()">Mi Perfil</button>
+                <button class="nav-btn btn-secondary" onclick="showReports()">Reportes</button>
+                <button class="nav-btn btn-primary" onclick="logout()">Cerrar Sesión</button>
+            `;
+            
+            loadAppointments();
+        }
+
+        function showHome() {
+            document.getElementById('homeSection').classList.remove('hidden');
+            document.getElementById('profileSection').classList.add('hidden');
+            const r = document.getElementById('reportsSection'); if (r) r.classList.add('hidden');
+            loadAppointments();
+        }
+
+        function showProfile() {
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('profileSection').classList.remove('hidden');
+            const r = document.getElementById('reportsSection'); if (r) r.classList.add('hidden');
+            
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phone;
+            document.getElementById('profileBirthdate').textContent = currentUser.birthdate;
+            document.getElementById('profileGender').textContent = currentUser.gender;
+            document.getElementById('profileAllergies').textContent = currentUser.allergies || 'Ninguna';
+        }
+
+        function showReports() {
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('profileSection').classList.add('hidden');
+            const r = document.getElementById('reportsSection'); if (r) r.classList.remove('hidden');
+            renderReports();
+        }
+
+        function showEditProfile() {
+            document.getElementById('editName').value = currentUser.name;
+            document.getElementById('editPhone').value = currentUser.phone;
+            document.getElementById('editBirthdate').value = currentUser.birthdate;
+            document.getElementById('editGender').value = currentUser.gender;
+            document.getElementById('editAllergies').value = currentUser.allergies;
+            document.getElementById('editProfileModal').style.display = 'block';
+        }
+
+        function closeEditProfile() {
+            document.getElementById('editProfileModal').style.display = 'none';
+        }
+
+        function updateProfile(e) {
+            e.preventDefault();
+            currentUser.name = document.getElementById('editName').value;
+            currentUser.phone = document.getElementById('editPhone').value;
+            currentUser.birthdate = document.getElementById('editBirthdate').value;
+            currentUser.gender = document.getElementById('editGender').value;
+            currentUser.allergies = document.getElementById('editAllergies').value;
+            
+            users[currentUser.email] = currentUser;
+            localStorage.setItem('medicalUsers', JSON.stringify(users));
+            
+            closeEditProfile();
+            showProfile();
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('navLinks').innerHTML = `
+                <button class="nav-btn btn-secondary" onclick="showLogin()">Iniciar Sesión</button>
+                <button class="nav-btn btn-primary" onclick="showRegister()">Registrarse</button>
+            `;
+            showLogin();
+        }
+
+        function openAppointmentModal(specialty) {
+            document.getElementById('appointmentSpec').value = specialty;
+            // set default date to today if empty
+            const dateInput = document.getElementById('appointmentDate');
+            if (!dateInput.value) dateInput.value = new Date().toISOString().split('T')[0];
+            renderSlots();
+            document.getElementById('appointmentModal').style.display = 'block';
+        }
+
+        function closeAppointmentModal() {
+            document.getElementById('appointmentModal').style.display = 'none';
+            document.getElementById('appointmentAlert').innerHTML = '';
+            // clear selected slot
+            const sel = document.querySelector('input[name="slotRadio"]:checked');
+            if (sel) sel.checked = false;
+            document.getElementById('appointmentReason').value = '';
+            document.getElementById('appointmentName').value = '';
+        }
+
+        function isSlotBooked(specialty, date, time) {
+            for (const userEmail in appointments) {
+                const arr = appointments[userEmail] || [];
+                for (const a of arr) {
+                    if (a.specialty === specialty && a.date === date && a.time === time) return true;
+                }
+            }
+            return false;
+        }
+
+        function renderSlots() {
+            const container = document.getElementById('slotsContainer');
+            const specialty = document.getElementById('appointmentSpec').value;
+            const date = document.getElementById('appointmentDate').value;
+            container.innerHTML = '';
+            if (!date || !specialty) return;
+
+            DEFAULT_SLOTS.forEach((t, idx) => {
+                const booked = isSlotBooked(specialty, date, t);
+                const id = `slot_${idx}`;
+                const btn = document.createElement('label');
+                btn.style.padding = '8px 12px';
+                btn.style.border = '1px solid #ddd';
+                btn.style.borderRadius = '8px';
+                btn.style.cursor = booked ? 'not-allowed' : 'pointer';
+                btn.style.background = booked ? '#f8d7da' : '#e3f2fd';
+                btn.style.color = booked ? '#721c24' : '#0277BD';
+                btn.style.display = 'inline-flex';
+                btn.style.alignItems = 'center';
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'slotRadio';
+                radio.value = t;
+                radio.id = id;
+                radio.style.marginRight = '8px';
+                if (booked) radio.disabled = true;
+
+                btn.appendChild(radio);
+                const text = document.createTextNode(` ${t}` + (booked ? ' (Ocupado)' : ''));
+                btn.appendChild(text);
+                container.appendChild(btn);
+            });
+        }
+
+        function scheduleAppointment(e) {
+            e.preventDefault();
+            const specialty = document.getElementById('appointmentSpec').value;
+            const date = document.getElementById('appointmentDate').value;
+            const selected = document.querySelector('input[name="slotRadio"]:checked');
+            const name = document.getElementById('appointmentName').value.trim();
+            const reason = document.getElementById('appointmentReason').value.trim();
+
+            if (!selected) {
+                showAlert('appointmentAlert', 'Seleccione un horario disponible', 'error');
+                return;
+            }
+
+            const time = selected.value;
+
+            // doble chequeo disponibilidad
+            if (isSlotBooked(specialty, date, time)) {
+                showAlert('appointmentAlert', 'El horario ya fue reservado. Elija otro.', 'error');
+                renderSlots();
+                return;
+            }
+
+            const appointment = {
+                id: Date.now(),
+                specialty,
+                date,
+                time,
+                reason,
+                userEmail: currentUser.email,
+                clientName: name
+            };
+
+            if (!appointments[currentUser.email]) appointments[currentUser.email] = [];
+            appointments[currentUser.email].push(appointment);
+            localStorage.setItem('medicalAppointments', JSON.stringify(appointments));
+
+            showAlert('appointmentAlert', 'Cita agendada exitosamente!', 'success');
+            setTimeout(() => {
+                closeAppointmentModal();
+                loadAppointments();
+            }, 900);
+        }
+
+        function loadAppointments() {
+            const userAppointments = appointments[currentUser.email] || [];
+            const listDiv = document.getElementById('appointmentsList');
+
+            if (userAppointments.length === 0) {
+                listDiv.innerHTML = '<p style="text-align: center; color: #999;">No tienes citas programadas</p>';
+                return;
+            }
+
+            listDiv.innerHTML = userAppointments.map(apt => `
+                <div class="appointment-card">
+                    <h4>${apt.specialty}</h4>
+                    <div class="appointment-info">
+                        <span>📅 ${apt.date}</span>
+                        <span>🕐 ${apt.time}</span>
+                        <span>👤 ${apt.clientName || users[apt.userEmail]?.name || 'Paciente'}</span>
+                        <span>📝 ${apt.reason}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Reports
+        function getAllAppointmentsFlat() {
+            const flat = [];
+            for (const email in appointments) {
+                const arr = appointments[email] || [];
+                arr.forEach(a => flat.push(a));
+            }
+            // sort by date/time
+            flat.sort((a,b) => (a.date + ' ' + a.time).localeCompare(b.date + ' ' + b.time));
+            return flat;
+        }
+
+        function renderReports() {
+            const container = document.getElementById('reportsContainer');
+            if (!container) return;
+            const flat = getAllAppointmentsFlat();
+            if (flat.length === 0) {
+                container.innerHTML = '<p style="text-align:center;color:#777;">No hay citas registradas</p>';
+                return;
+            }
+
+            const rows = flat.map(a => `
+                <tr>
+                    <td>${a.clientName || users[a.userEmail]?.name || a.userEmail}</td>
+                    <td>${a.userEmail}</td>
+                    <td>${a.specialty}</td>
+                    <td>${a.date}</td>
+                    <td>${a.time}</td>
+                    <td>${a.reason}</td>
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <h3>Reportes de Citas (${flat.length})</h3>
+                    <div>
+                        <button class="nav-btn btn-secondary" onclick="exportCSV()">Exportar CSV</button>
+                    </div>
+                </div>
+                <div style="overflow:auto;max-height:400px;">
+                    <table style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#f0f0f0;text-align:left;">
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Paciente</th>
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Email</th>
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Especialidad</th>
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Fecha</th>
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Hora</th>
+                                <th style="padding:8px;border-bottom:1px solid #ddd;">Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rows}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function exportCSV() {
+            const flat = getAllAppointmentsFlat();
+            if (flat.length === 0) return alert('No hay datos para exportar');
+            const header = ['Paciente','Email','Especialidad','Fecha','Hora','Motivo'];
+            const lines = [header.join(',')];
+            flat.forEach(a => {
+                const row = [
+                    `"${(a.clientName||users[a.userEmail]?.name||'').replace(/"/g,'""')}"`,
+                    `"${(a.userEmail||'').replace(/"/g,'""')}"`,
+                    `"${(a.specialty||'').replace(/"/g,'""')}"`,
+                    `"${a.date}"`,
+                    `"${a.time}"`,
+                    `"${(a.reason||'').replace(/"/g,'""')}"`
+                ];
+                lines.push(row.join(','));
+            });
+
+            const csv = lines.join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'reportes_citas.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Set minimum date for appointments
+        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>
