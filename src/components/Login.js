@@ -69,9 +69,9 @@ const Login = ({ onSwitchToRegister }) => {
         </form>
         <div className="form-footer">
           ¿No tienes cuenta?{' '}
-          <a href="#" onClick={(e) => { e.preventDefault(); onSwitchToRegister(); }}>
+          <button type="button" className="link-button" onClick={onSwitchToRegister}>
             Regístrate aquí
-          </a>
+          </button>
         </div>
       </div>
     </div>

@@ -138,6 +138,23 @@
   font-size: 14px;
 }
 
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.link-button:hover {
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
 .form-footer a {
   color: #0277BD;
   text-decoration: none;

@@ -151,7 +151,6 @@ const SelfConsultationModal = ({ onClose, onScheduleAppointment }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [recommendedSpecialty, setRecommendedSpecialty] = useState(null);
-  const [diagnosis, setDiagnosis] = useState('');
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -162,6 +161,7 @@ const SelfConsultationModal = ({ onClose, onScheduleAppointment }) => {
     if (messages.length === 0) {
       addBotMessage(QUESTIONS[0].question);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Scroll al final del chat
@@ -305,14 +305,11 @@ const SelfConsultationModal = ({ onClose, onScheduleAppointment }) => {
       diagnosisText += `\n`;
 
       // Recomendaciones inteligentes
-      let recommendationLevel = 'mild';
       let recommendationText = '';
 
       if (painLevel.includes('9-10') || painLevel.includes('7-8')) {
-        recommendationLevel = 'urgent';
         recommendationText = AI_RESPONSES.recommendations.urgent;
       } else if (fever === 'Sí' || duration.includes('Más de una semana')) {
-        recommendationLevel = 'moderate';
         recommendationText = AI_RESPONSES.recommendations.moderate;
       } else {
         recommendationText = AI_RESPONSES.recommendations.mild;
@@ -332,8 +329,6 @@ const SelfConsultationModal = ({ onClose, onScheduleAppointment }) => {
       }
 
       diagnosisText += `📌 **Nota importante:** Esta es una evaluación preliminar basada en inteligencia artificial. No reemplaza una consulta médica profesional. Si tus síntomas empeoran o tienes dudas, busca atención médica inmediata.`;
-
-      setDiagnosis(diagnosisText);
       
       // Mostrar resultado en el chat
       setTimeout(() => {
@@ -366,7 +361,6 @@ const SelfConsultationModal = ({ onClose, onScheduleAppointment }) => {
     setCurrentAnswer('');
     setShowResult(false);
     setRecommendedSpecialty(null);
-    setDiagnosis('');
     setTimeout(() => {
       addBotMessage(QUESTIONS[0].question);
     }, 500);
