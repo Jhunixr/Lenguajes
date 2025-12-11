@@ -214,6 +214,7 @@ export const AppProvider = ({ children }) => {
           specialty: appointmentData.specialty,
           date: appointmentData.date,
           time: appointmentData.time,
+          doctor: appointmentData.doctor || null,
           client_name: appointmentData.clientName,
           reason: appointmentData.reason
         };
@@ -377,6 +378,63 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getAllDoctors = async () => {
+    if (!useSupabase) {
+      return [];
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('doctors')
+        .select('*')
+        .order('specialty', { ascending: true })
+        .order('name', { ascending: true });
+
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      console.error('Error cargando doctores:', error);
+      return [];
+    }
+  };
+
+  const createDoctor = async (doctorData) => {
+    if (!useSupabase) {
+      throw new Error('Gestión de doctores disponible solo con Supabase configurado');
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('doctors')
+        .insert([doctorData])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Error al crear doctor');
+    }
+  };
+
+  const deleteDoctor = async (doctorId) => {
+    if (!useSupabase) {
+      throw new Error('Gestión de doctores disponible solo con Supabase configurado');
+    }
+
+    try {
+      const { error } = await supabase
+        .from('doctors')
+        .delete()
+        .eq('id', doctorId);
+
+      if (error) throw error;
+      return true;
+    } catch (error) {
+      throw new Error(error.message || 'Error al eliminar doctor');
+    }
+  };
+
   const cancelAppointment = async (appointmentId) => {
     if (useSupabase) {
       try {
@@ -422,7 +480,10 @@ export const AppProvider = ({ children }) => {
     isSlotBooked,
     getUserAppointments,
     getAllAppointments,
-    getAllUsers
+    getAllUsers,
+    getAllDoctors,
+    createDoctor,
+    deleteDoctor
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

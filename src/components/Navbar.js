@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import './Navbar.css';
 
 const Navbar = ({ isAuthenticated, onNavigate, currentView }) => {
-  const { logout } = useApp();
+  const { logout, currentUser } = useApp();
 
   const handleLogout = () => {
     logout();
@@ -36,12 +36,19 @@ const Navbar = ({ isAuthenticated, onNavigate, currentView }) => {
           >
             Mi Perfil
           </button>
-          <button
-            className={`nav-btn ${currentView === 'reports' ? 'active' : 'btn-secondary'}`}
-            onClick={() => onNavigate('reports')}
-          >
-            Reportes
-          </button>
+          {currentUser && currentUser.role === 'admin' && (
+            <button
+              className={`nav-btn ${currentView === 'reports' ? 'active' : 'btn-secondary'}`}
+              onClick={() => onNavigate('reports')}
+            >
+              Panel Admin
+            </button>
+          )}
+          {currentUser && (
+            <span className="nav-user-pill">
+              👤 {currentUser.name}
+            </span>
+          )}
           <button className="nav-btn btn-primary" onClick={handleLogout}>
             Cerrar Sesión
           </button>

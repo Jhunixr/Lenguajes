@@ -33,7 +33,10 @@ const Register = ({ onSwitchToLogin }) => {
       if (formData.password.length < 6) {
         throw new Error('La contraseña debe tener al menos 6 caracteres');
       }
-      await register(formData);
+      await register({
+        ...formData,
+        role: 'patient'
+      });
     } catch (err) {
       setError(err.message);
     } finally {

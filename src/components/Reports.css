@@ -17,6 +17,13 @@
   gap: 20px;
 }
 
+.reports-subtitle {
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
 .reports-header h2 {
   background: var(--bg-gradient);
   -webkit-background-clip: text;
@@ -79,6 +86,119 @@
   color: #777;
   font-size: 16px;
   padding: 40px;
+}
+
+.reports-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+  background: var(--bg-secondary);
+  padding: 16px 18px;
+  border-radius: var(--border-radius);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.filter-group select,
+.filter-group input[type="date"] {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.doctors-admin {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr);
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.doctors-form h3 {
+  margin: 0 0 6px 0;
+}
+
+.doctors-subtitle {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.doctors-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 16px;
+  align-items: end;
+}
+
+.form-group-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-inline label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group-inline input,
+.form-group-inline select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.export-btn.small {
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.small-alert {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.doctors-list {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.doctors-list h4 {
+  margin: 0 0 10px 0;
+}
+
+.doctors-table th,
+.doctors-table td {
+  padding: 10px 12px;
+}
+
+.doctor-delete-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .reports-stats {
@@ -182,6 +302,30 @@
   transform: scale(1.01);
 }
 
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-upcoming {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.status-past {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.status-unknown {
+  background: rgba(156, 163, 175, 0.15);
+  color: #4b5563;
+}
+
 .reason-cell {
   max-width: 300px;
   word-wrap: break-word;
@@ -238,6 +382,10 @@
   .reports-table-container {
     font-size: 14px;
     border-radius: var(--border-radius);
+  }
+
+  .reports-filters {
+    flex-direction: column;
   }
 
   .reports-table th,

@@ -92,6 +92,58 @@
   border-color: #e5e7eb;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.doctor-summary {
+  margin: 16px 0 10px 0;
+  padding: 12px 14px;
+  border-radius: var(--border-radius);
+  background: rgba(219, 234, 254, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doctor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.doctor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doctor-name {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.doctor-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.doctor-meta span {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
 .slots-container {
   display: flex;
   gap: 12px;

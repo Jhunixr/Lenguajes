@@ -4,7 +4,8 @@
   border-radius: var(--border-radius-lg);
   padding: 50px;
   box-shadow: var(--shadow-xl);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-top: 4px solid var(--accent-color);
   animation: fadeInUp 0.6s ease-out;
 }
 
@@ -29,6 +30,22 @@
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-xl);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.35);
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-section::before {
@@ -77,6 +94,15 @@
   margin-top: 40px;
   position: relative;
   z-index: 1;
+}
+
+.hero-legal {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-btn {
@@ -134,6 +160,9 @@
 
 .specializations {
   padding: 50px 0;
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.35) 0%, rgba(239, 246, 255, 0.6) 100%);
+  border-radius: var(--border-radius-lg);
+  margin-top: 40px;
 }
 
 .specializations h2 {
@@ -160,6 +189,42 @@
   border-radius: 2px;
 }
 
+.next-appointment-highlight {
+  margin: 30px auto 20px auto;
+  padding: 18px 22px;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.12) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  box-shadow: var(--shadow-md);
+}
+
+.next-appointment-highlight h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.next-appointment-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.next-appointment-main span {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.next-appointment-extra {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
 .spec-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -168,14 +233,14 @@
 }
 
 .spec-card {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #fef9c3 40%, #ffffff 100%);
   padding: 35px;
   border-radius: var(--border-radius-lg);
   text-align: center;
   box-shadow: var(--shadow-md);
   transition: var(--transition);
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid rgba(234, 179, 8, 0.35);
   position: relative;
   overflow: hidden;
 }
@@ -199,7 +264,7 @@
 .spec-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-xl);
-  border-color: rgba(37, 99, 235, 0.2);
+  border-color: rgba(250, 204, 21, 0.9);
 }
 
 .spec-icon {
@@ -272,6 +337,9 @@
   margin-top: 60px;
   padding-top: 50px;
   border-top: 2px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, rgba(254, 226, 226, 0.3) 0%, rgba(239, 246, 255, 0.5) 100%);
+  border-radius: var(--border-radius-lg);
+  padding-bottom: 40px;
 }
 
 .appointments-section h2 {
@@ -303,9 +371,9 @@
   color: var(--text-secondary);
   font-size: 18px;
   padding: 60px;
-  background: var(--bg-secondary);
+  background: rgba(254, 243, 199, 0.65);
   border-radius: var(--border-radius);
-  border: 2px dashed rgba(0, 0, 0, 0.1);
+  border: 2px dashed rgba(234, 179, 8, 0.8);
 }
 
 .appointments-list {
@@ -315,7 +383,7 @@
 }
 
 .appointment-card {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #fee2e2 55%, #ffffff 100%);
   padding: 25px;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
@@ -347,6 +415,30 @@
   align-items: center;
   margin-bottom: 15px;
   gap: 15px;
+}
+
+.appointment-status {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.status-proxima {
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+}
+
+.status-hoy {
+  background: rgba(245, 158, 11, 0.1);
+  color: #b45309;
+}
+
+.status-pasada {
+  background: rgba(107, 114, 128, 0.1);
+  color: #4b5563;
 }
 
 .appointment-card h4 {
@@ -422,6 +514,15 @@
   font-weight: 500;
 }
 
+.home-footer {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 1024px) {
   .home-container {
     padding: 30px;
@@ -459,6 +560,10 @@
 
   .hero-hint {
     font-size: 13px;
+  }
+
+  .hero-legal {
+    font-size: 11px;
   }
 
   .specializations {
