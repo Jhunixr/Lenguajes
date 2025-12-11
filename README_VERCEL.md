@@ -94,3 +94,4 @@ Después del deploy, verifica:
 - Vercel hace deploy automático en cada push a la rama principal
 - Puedes ver los logs de build en tiempo real en el dashboard de Vercel
 
+

@@ -61,3 +61,4 @@ const Navbar = ({ isAuthenticated, onNavigate, currentView }) => {
 export default Navbar;
 
 
+

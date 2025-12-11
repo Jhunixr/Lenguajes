@@ -87,3 +87,4 @@ npm start
 - Verifica la consola del navegador para ver errores específicos
 
 
+
